@@ -1,0 +1,25 @@
+<h2>Livros Cadastrados</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="livro : ${livros}">
+            <td th:text="${livro.idLivro}"></td>
+            <td th:text="${livro.titulo}"></td>
+            <td th:text="${livro.autor}"></td>
+            <td>
+                <a th:href="@{/livros/consultar/{id}(id=${livro.idLivro})}">Consultar</a>
+                <form action="/livros/deletar" method="POST" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${livro.idLivro}" />
+                    <button type="submit">Deletar</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
