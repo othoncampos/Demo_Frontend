@@ -37,11 +37,11 @@
           <input type="text" id="idioma" placeholder="Idioma" required />
           <input type="number" id="preco" placeholder="Preço" required />
           <input
-            type="number"
-            id="num_Paginas"
-            placeholder="Número de Páginas"
-            required
-          />
+  type="number"
+  id="numPaginas"
+  placeholder="Número de Páginas"
+  required
+/>
           <textarea id="sinopse" placeholder="Sinopse" required></textarea>
           <button type="submit">Cadastrar</button>
         </form>
@@ -86,11 +86,11 @@
             required
           />
           <input
-            type="number"
-            id="num_PaginasAtualizar"
-            placeholder="Número de Páginas"
-            required
-          />
+  type="number"
+  id="numPaginasAtualizar"
+  placeholder="Número de Páginas"
+  required
+/>
           <input
             type="text"
             id="editoraAtualizar"
@@ -145,30 +145,33 @@
 
       // Função para cadastrar um livro
       async function addLivro() {
-        const livro = {
-          titulo: document.getElementById("titulo").value,
-          autor: document.getElementById("autor").value,
-          isbn: document.getElementById("isbn").value,
-          anoPublicacao: document.getElementById("anoPublicacao").value,
-          editora: document.getElementById("editora").value,
-        };
+  const livro = {
+    titulo: document.getElementById("titulo").value,
+    autor: document.getElementById("autor").value,
+    isbn: document.getElementById("isbn").value,
+    anoPublicacao: document.getElementById("anoPublicacao").value,
+    editora: document.getElementById("editora").value,
+    sinopse: document.getElementById("sinopse").value,
+    idioma: document.getElementById("idioma").value,
+    preco: document.getElementById("preco").value,
+    numPaginas: document.getElementById("numPaginas").value, // Corrigido
+  };
 
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(livro),
-        });
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(livro),
+  });
 
-        if (response.ok) {
-          alert("Livro cadastrado com sucesso!");
-          listarLivros(); // Atualiza a lista de livros
-        } else {
-          alert("Erro ao cadastrar o livro.");
-        }
-      }
-
+  if (response.ok) {
+    alert("Livro cadastrado com sucesso!");
+    listarLivros();
+  } else {
+    alert("Erro ao cadastrar o livro.");
+  }
+}
       // Função para listar todos os livros
       async function listarLivros() {
         const response = await fetch(`${API_URL}/listall`);
@@ -227,7 +230,7 @@ async function preencherFormularioAtualizacao(id) {
 }
 
      // Função para atualizar um livro
-async function atualizarLivro() {
+     async function atualizarLivro() {
   const livroAtualizado = {
     id_livro: document.getElementById("idLivroAtualizar").value,
     titulo: document.getElementById("tituloAtualizar").value,
@@ -235,7 +238,7 @@ async function atualizarLivro() {
     genero: document.getElementById("generoAtualizar").value,
     idioma: document.getElementById("idiomaAtualizar").value,
     preco: document.getElementById("precoAtualizar").value,
-    num_Paginas: document.getElementById("num_PaginasAtualizar").value,
+    numPaginas: document.getElementById("numPaginasAtualizar").value, // Corrigido
     editora: document.getElementById("editoraAtualizar").value,
     anoPublicacao: document.getElementById("anoPublicacaoAtualizar").value,
     isbn: document.getElementById("isbnAtualizar").value,
@@ -254,12 +257,11 @@ async function atualizarLivro() {
 
   if (response.ok) {
     alert("Livro atualizado com sucesso!");
-    listarLivros(); // Atualiza a lista de livros
+    listarLivros();
   } else {
     alert("Erro ao atualizar o livro.");
   }
 }
-
       // Função para deletar um livro
       async function deletarLivro(id) {
         const response = await fetch(`${API_URL}/${id}`, {
@@ -339,7 +341,7 @@ async function atualizarLivro() {
         <p><strong>Gênero:</strong> ${livro.genero}</p>
         <p><strong>Idioma:</strong> ${livro.idioma}</p>
         <p><strong>Preço:</strong> ${livro.preco}</p>
-        <p><strong>Número de Páginas:</strong> ${livro.num_Paginas}</p>
+        <p><strong>Número de Páginas:</strong> ${livro.numPaginas}</p>
         <p><strong>Editora:</strong> ${livro.editora}</p>
         <p><strong>Ano de Publicação:</strong> ${livro.anoPublicacao}</p>
         <p><strong>Sinopse:</strong> ${livro.sinopse}</p>
