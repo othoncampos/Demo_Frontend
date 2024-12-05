@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="/style.css">
+    
+
+
   </head>
+
   <body>
     <h2>Livros Cadastrados</h2>
     <table id="tabelaLivros">
@@ -20,7 +25,7 @@
     </table>
 
     <div style="display: flex; justify-content: space-between; gap: 20px">
-      <!-- Formulário de Cadastro -->
+    
       <div style="flex: 1">
         <h1>Cadastro de Livros</h1>
         <form id="formLivro" onsubmit="event.preventDefault(); addLivro();">
@@ -29,7 +34,7 @@
           <input type="text" id="isbn" placeholder="ISBN" />
           <input
             type="number"
-            id="anoPublicacao"
+            id="ano_publicacao"
             placeholder="Ano de Publicação"
           />
           <input type="text" id="editora" placeholder="Editora" />
@@ -37,17 +42,16 @@
           <input type="text" id="idioma" placeholder="Idioma" required />
           <input type="number" id="preco" placeholder="Preço" required />
           <input
-  type="number"
-  id="numPaginas"
-  placeholder="Número de Páginas"
-  required
-/>
+            type="number"
+            id="num_paginas"
+            placeholder="Número de Páginas"
+            required
+          />
           <textarea id="sinopse" placeholder="Sinopse" required></textarea>
           <button type="submit">Cadastrar</button>
         </form>
       </div>
 
-      <!-- Formulário de Atualização -->
       <div style="flex: 1">
         <h1>Atualizar Livro</h1>
         <form
@@ -86,11 +90,11 @@
             required
           />
           <input
-  type="number"
-  id="numPaginasAtualizar"
-  placeholder="Número de Páginas"
-  required
-/>
+            type="number"
+            id="num_paginasAtualizar"
+            placeholder="Número de Páginas"
+            required
+          />
           <input
             type="text"
             id="editoraAtualizar"
@@ -99,7 +103,7 @@
           />
           <input
             type="number"
-            id="anoPublicacaoAtualizar"
+            id="ano_publicacaoAtualizar"
             placeholder="Ano de Publicação"
             required
           />
@@ -137,402 +141,9 @@
 
     <h2>Detalhes do Livro</h2>
     <div id="detalhesLivro">
-      <!-- Detalhes do livro aparecerão aqui -->
     </div>
 
-    <script>
-      const API_URL = "http://localhost:8081/livros"; // URL do backend
+    <script src="/script.js"></script>
 
-      // Função para cadastrar um livro
-      async function addLivro() {
-  const livro = {
-    titulo: document.getElementById("titulo").value,
-    autor: document.getElementById("autor").value,
-    isbn: document.getElementById("isbn").value,
-    anoPublicacao: document.getElementById("anoPublicacao").value,
-    editora: document.getElementById("editora").value,
-    sinopse: document.getElementById("sinopse").value,
-    idioma: document.getElementById("idioma").value,
-    preco: document.getElementById("preco").value,
-    numPaginas: document.getElementById("numPaginas").value, // Corrigido
-  };
-
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(livro),
-  });
-
-  if (response.ok) {
-    alert("Livro cadastrado com sucesso!");
-    listarLivros();
-  } else {
-    alert("Erro ao cadastrar o livro.");
-  }
-}
-      // Função para listar todos os livros
-      async function listarLivros() {
-        const response = await fetch(`${API_URL}/listall`);
-        const livros = await response.json();
-
-        const tabelaCorpo = document.getElementById("tabelaCorpo");
-        tabelaCorpo.innerHTML = ""; // Limpa a tabela antes de adicionar novos livros
-
-        livros.forEach((livro) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-                    <td>${livro.id_livro}</td>
-                    <td>${livro.titulo}</td>
-                    <td>${livro.autor}</td>
-                    
-                   <td>
-                        <button 
-                            onclick="consultarPorId2(${livro.id_livro})" 
-                            style="background-color: gray; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 14px; font-weight: bold; !important;">
-                            Ver Detalhes
-                        </button>
-                        <button 
-                            onclick="preencherFormularioAtualizacao(${livro.id_livro})" 
-                            style="background-color: orange; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 14px; font-weight: bold; !important;">
-                            Atualizar
-                        </button>
-                        <button 
-                            onclick="deletarLivro(${livro.id_livro})" 
-                            style="background-color: red; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 14px; font-weight: bold; !important;">
-                            Deletar
-                        </button>
-                    </td>
-                `;
-          tabelaCorpo.appendChild(row);
-        });
-      }
-
-      // Função para preencher o formulário de atualização
-      // Função para preencher o formulário de atualização
-async function preencherFormularioAtualizacao(id) {
-  const response = await fetch(`${API_URL}/${id}`);
-  
-  const livro = await response.json();
-  console.log(livro)
-  document.getElementById("idLivroAtualizar").value = id;
-  document.getElementById("tituloAtualizar").value = livro.titulo;
-  document.getElementById("autorAtualizar").value = livro.autor;
-  document.getElementById("generoAtualizar").value = livro.genero;
-  document.getElementById("idiomaAtualizar").value = livro.idioma;
-  document.getElementById("precoAtualizar").value = livro.preco;
-  document.getElementById("num_PaginasAtualizar").value = livro.num_Paginas;
-  document.getElementById("editoraAtualizar").value = livro.editora;
-  document.getElementById("anoPublicacaoAtualizar").value = livro.anoPublicacao;
-  document.getElementById("isbnAtualizar").value = livro.isbn;
-  document.getElementById("sinopseAtualizar").value = livro.sinopse;
-}
-
-     // Função para atualizar um livro
-     async function atualizarLivro() {
-  const livroAtualizado = {
-    id_livro: document.getElementById("idLivroAtualizar").value,
-    titulo: document.getElementById("tituloAtualizar").value,
-    autor: document.getElementById("autorAtualizar").value,
-    genero: document.getElementById("generoAtualizar").value,
-    idioma: document.getElementById("idiomaAtualizar").value,
-    preco: document.getElementById("precoAtualizar").value,
-    numPaginas: document.getElementById("numPaginasAtualizar").value, // Corrigido
-    editora: document.getElementById("editoraAtualizar").value,
-    anoPublicacao: document.getElementById("anoPublicacaoAtualizar").value,
-    isbn: document.getElementById("isbnAtualizar").value,
-    sinopse: document.getElementById("sinopseAtualizar").value,
-  };
-
-  const idLivro = document.getElementById("idLivroAtualizar").value;
-
-  const response = await fetch(`${API_URL}/${idLivro}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(livroAtualizado),
-  });
-
-  if (response.ok) {
-    alert("Livro atualizado com sucesso!");
-    listarLivros();
-  } else {
-    alert("Erro ao atualizar o livro.");
-  }
-}
-      // Função para deletar um livro
-      async function deletarLivro(id) {
-        const response = await fetch(`${API_URL}/${id}`, {
-          method: "DELETE",
-        });
-
-        if (response.ok) {
-          alert("Livro deletado com sucesso!");
-          listarLivros(); // Atualiza a lista de livros
-        } else {
-          alert("Erro ao deletar o livro.");
-        }
-      }
-
-      // Função para consultar um livro por ID
-      async function consultarPorId() {
-        const id = document.getElementById("idConsulta").value;
-        const response = await fetch(`${API_URL}/${id}`);
-        const livro = await response.json();
-
-        if (livro) {
-          mostrarDetalhes(livro);
-        } else {
-          alert("Livro não encontrado.");
-        }
-      }
-
-      async function consultarPorId2(ID) {
-        const response = await fetch(`${API_URL}/${ID}`);
-        const livro = await response.json();
-
-        if (livro) {
-          mostrarDetalhes(livro);
-
-          // Rolando a página até o final
-          window.scrollTo(0, document.body.scrollHeight);
-        } else {
-          alert("Livro não encontrado.");
-        }
-      }
-
-      // Função para consultar um livro por ISBN
-      async function consultarPorIsbn() {
-        const isbn = document.getElementById("isbnConsulta").value;
-        const response = await fetch(`${API_URL}/isbn/${isbn}`);
-        const livro = await response.json();
-
-        if (livro) {
-          mostrarDetalhes(livro);
-        } else {
-          alert("Livro não encontrado.");
-        }
-      }
-
-      // Função para consultar um livro por Título
-      async function consultarPorTitulo() {
-        const titulo = document.getElementById("tituloConsulta").value;
-        const response = await fetch(`${API_URL}/titulo/${titulo}`);
-        const livros = await response.json();
-
-        if (livros.length > 0) {
-          mostrarDetalhes(livros[0]);
-        } else {
-          alert("Livro não encontrado.");
-        }
-      }
-
-      // Função para exibir os detalhes do livro
-      function mostrarDetalhes(livro) {
-    const detalhesDiv = document.getElementById("detalhesLivro");
-
-    detalhesDiv.innerHTML = `
-        <h3>Detalhes do Livro</h3>
-        <p><strong>Título:</strong> ${livro.titulo}</p>
-        <p><strong>Autor:</strong> ${livro.autor}</p>
-        <p><strong>ISBN:</strong> ${livro.isbn}</p>
-        <p><strong>Gênero:</strong> ${livro.genero}</p>
-        <p><strong>Idioma:</strong> ${livro.idioma}</p>
-        <p><strong>Preço:</strong> ${livro.preco}</p>
-        <p><strong>Número de Páginas:</strong> ${livro.numPaginas}</p>
-        <p><strong>Editora:</strong> ${livro.editora}</p>
-        <p><strong>Ano de Publicação:</strong> ${livro.anoPublicacao}</p>
-        <p><strong>Sinopse:</strong> ${livro.sinopse}</p>
-    `;
-}
-
-
-      // Chama a função para listar os livros quando a página for carregada
-      window.onload = listarLivros;
-    </script>
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: #f4f7fc;
-        color: #333;
-        line-height: 1.6;
-        padding: 20px;
-      }
-
-      h1,
-      h2 {
-        color: #2c3e50;
-        font-weight: 600;
-        margin-bottom: 15px;
-        text-align: center;
-      }
-
-      /* Consultar Cards */
-      .consultar-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        flex-wrap: wrap;
-        margin-top: 20px;
-      }
-
-      .consultar-card {
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        width: 30%;
-        text-align: center;
-        transition: transform 0.3s;
-      }
-
-      .consultar-card:hover {
-        transform: translateY(-5px);
-      }
-
-      .consultar-card input {
-        width: 80%;
-        padding: 12px;
-        margin-top: 10px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        font-size: 16px;
-      }
-
-      .consultar-card button {
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        padding: 10px;
-        margin-top: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .consultar-card button:hover {
-        background-color: #45a049;
-      }
-
-      /* Seção Livros Cadastrados */
-      #tabelaLivros {
-        width: 100%;
-        max-width: 800px;
-        margin: 20px auto;
-        border-collapse: collapse;
-        background-color: #ffffff;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-      }
-
-      #tabelaLivros th,
-      #tabelaLivros td {
-        padding: 12px;
-        text-align: left;
-      }
-
-      #tabelaLivros th {
-        background-color: #4caf50;
-        color: white;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-
-      #tabelaLivros td {
-        background-color: #f9f9f9;
-        border-bottom: 1px solid #ddd;
-      }
-
-      #tabelaLivros tr:nth-child(even) td {
-        background-color: #f1f1f1;
-      }
-
-      #tabelaLivros td button {
-        background-color: #e74c3c;
-        color: white;
-        padding: 6px 12px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      #tabelaLivros td button:hover {
-        background-color: #c0392b;
-      }
-
-      /* Formulários */
-      form {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-
-      input[type="text"],
-      input[type="number"],
-      button {
-        width: 100%;
-        padding: 12px;
-        margin: 8px 0;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        font-size: 16px;
-      }
-
-      button {
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      input[type="text"],
-      input[type="number"] {
-        background-color: #f9f9f9;
-      }
-
-      input:focus,
-      button:focus {
-        outline: none;
-        border-color: #4caf50;
-      }
-
-      /* Detalhes do Livro */
-      #detalhesLivro {
-        background-color: #ffffff;
-        padding: 20px;
-        margin-top: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      #detalhesLivro p {
-        margin: 10px 0;
-        font-size: 16px;
-      }
-
-      /* Títulos */
-      h1,
-      h2 {
-        font-family: "Arial", sans-serif;
-        font-weight: bold;
-        color: #4caf50;
-      }
-    </style>
   </body>
 </html>
