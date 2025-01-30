@@ -1,8 +1,11 @@
 package br.edu.ifba.demo.frontend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import br.edu.ifba.demo.frontend.dto.UsuarioDTO;
 import br.edu.ifba.demo.frontend.service.UsuarioService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +20,10 @@ public class HomeController {
 
     @GetMapping("/")
     public ModelAndView index() {
-        String valor = usuarioService.listAllUsuarios().toString();
+        List<UsuarioDTO> usuarios = usuarioService.listAllUsuarios();
         ModelAndView mv = new ModelAndView();
-        mv.addObject("teste", valor);
+        usuarios.getFirst().getId_usuario();
+        mv.addObject("usuarios", usuarios);
         mv.setViewName("index");
         return mv;
     }
