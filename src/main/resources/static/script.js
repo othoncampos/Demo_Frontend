@@ -42,10 +42,11 @@ const API_URL = "http://localhost:8081/livros";
         livros.forEach((livro) => {
           const row = document.createElement("tr");
           row.innerHTML = `
-                    <td>${livro.id_livro}</td>
                     <td>${livro.titulo}</td>
                     <td>${livro.autor}</td>
-                    
+                    <td>${livro.anoPublicacao}</td>
+                    <td>${livro.numPaginas}</td>
+                    <td>${livro.preco}</td>
                    <td>
                         <button 
                             onclick="consultarPorId2(${livro.id_livro})" 
