@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro de Livros</title>
     <link rel="stylesheet" href="/style.css">
-    
-
-
   </head>
 
   <body>
+    <a href="/Cadastro" class="btn-cadastrar">Cadastrar Novo</a>
     <h2>Livros Cadastrados</h2>
     <table id="tabelaLivros">
       <thead>
@@ -18,134 +16,30 @@
           <th>Título</th>
           <th>Autor</th>
           <th>Ano</th>
-          <th>num_paginas </th>
-          <th>Preço </th>
+          <th>Nº Páginas</th>
+          <th>Preço</th>
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody id="tabelaCorpo"></tbody>
+      <tbody id="livrosCorpo"></tbody>
     </table>
 
-    <div style="display: flex; justify-content: space-between; gap: 20px">
-    
-      <div style="flex: 1">
-        <h1>Cadastro de Livros</h1>
-        <form id="formLivro" onsubmit="event.preventDefault(); addLivro();">
-          <input type="text" id="titulo" placeholder="Título" required />
-          <input type="text" id="autor" placeholder="Autor" required />
-          <input type="text" id="isbn" placeholder="ISBN" />
-          <input
-            type="number"
-            id="ano_publicacao"
-            placeholder="Ano de Publicação"
-          />
-          <input type="text" id="editora" placeholder="Editora" />
-          <input type="text" id="genero" placeholder="Gênero" required />
-          <input type="text" id="idioma" placeholder="Idioma" required />
-          <input type="number" id="preco" placeholder="Preço" required />
-          <input
-            type="number"
-            id="num_paginas"
-            placeholder="Número de Páginas"
-            required
-          />
-          <textarea id="sinopse" placeholder="Sinopse" required></textarea>
-          <button type="submit">Cadastrar</button>
-        </form>
-      </div>
+    <h2>Gêneros</h2>
+    <table id="tabelaGeneros">
+      <thead>
+        <tr>
+          <th>Nome Gênero</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="generosCorpo"></tbody>
+    </table>
 
-      <div style="flex: 1">
-        <h1>Atualizar Livro</h1>
-        <form
-          id="formAtualizarLivro"
-          onsubmit="event.preventDefault(); atualizarLivro();"
-        >
-          <input
-            type="number"
-            id="idLivroAtualizar"
-            placeholder="ID do Livro"
-            required
-          />
-          <input
-            type="text"
-            id="tituloAtualizar"
-            placeholder="Título"
-            required
-          />
-          <input type="text" id="autorAtualizar" placeholder="Autor" required />
-          <input
-            type="text"
-            id="generoAtualizar"
-            placeholder="Gênero"
-            required
-          />
-          <input
-            type="text"
-            id="idiomaAtualizar"
-            placeholder="Idioma"
-            required
-          />
-          <input
-            type="number"
-            id="precoAtualizar"
-            placeholder="Preço"
-            required
-          />
-          <input
-            type="number"
-            id="num_paginasAtualizar"
-            placeholder="Número de Páginas"
-            required
-          />
-          <input
-            type="text"
-            id="editoraAtualizar"
-            placeholder="Editora"
-            required
-          />
-          <input
-            type="number"
-            id="ano_publicacaoAtualizar"
-            placeholder="Ano de Publicação"
-            required
-          />
-          <input type="text" id="isbnAtualizar" placeholder="ISBN" required />
-          <textarea
-            id="sinopseAtualizar"
-            placeholder="Sinopse"
-            required
-          ></textarea>
-          <button type="submit">Atualizar Livro</button>
-        </form>
-      </div>
-    </div>
+    <a href="/CadastroGenero" class="btn-cadastrar">Cadastrar Gênero</a>
 
-    <p id="resultado"></p>
 
-    <h2>Consultar Livros</h2>
-    <div class="consultar-container">
-      <div class="consultar-card">
-        <h2>Consultar por ID</h2>
-        <input type="number" id="idConsulta" placeholder="ID" />
-        <button onclick="consultarPorId()">Consultar</button>
-      </div>
-      <div class="consultar-card">
-        <h2>Consultar por ISBN</h2>
-        <input type="text" id="isbnConsulta" placeholder="ISBN" />
-        <button onclick="consultarPorIsbn()">Consultar</button>
-      </div>
-      <div class="consultar-card">
-        <h2>Consultar por Título</h2>
-        <input type="text" id="tituloConsulta" placeholder="Título" />
-        <button onclick="consultarPorTitulo()">Consultar</button>
-      </div>
-    </div>
-
-    <h2>Detalhes do Livro</h2>
-    <div id="detalhesLivro">
-    </div>
-
-    <script src="/script.js"></script>
+    <script src="/script.js">
+    </script>
 
   </body>
 </html>

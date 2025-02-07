@@ -20,5 +20,17 @@ public class livroController {
         return mv;
     }
     
+    @GetMapping("/Cadastro")
+    public ModelAndView index1() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("form");
+        return mv;
+    }
 
+    @GetMapping("/CadastroGenero")
+    public ModelAndView index2() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("form2");
+        return mv;
+    }
 }
