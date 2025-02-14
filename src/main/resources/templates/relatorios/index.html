@@ -7,10 +7,17 @@
 <head>
     <title>Chart Example</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 </head>
 <body>
-    <div id="main" style="width: 500px;height:300px;"></div>
-    <div id="main2" style="width: 500px;height:300px;"></div>
+    <div class="container">
+        <row>
+            <div id="main" style="width: 500px;height:300px;"></div>
+        </row>
+        <row>
+            <div id="main2" style="width: 500px;height:300px;"></div>
+        </row>
+    </div>
     
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -28,8 +35,11 @@
             series: [{
                 name: 'Values',
                 type: 'line',
-                data: data
-            }]
+                data: data,
+                label: {
+                    show: true,
+                    position: 'top'
+                },            }]
         };
         chart.setOption(option);
 
@@ -47,7 +57,11 @@
             series: [{
                 name: 'Values',
                 type: 'bar',
-                data: data
+                data: data,
+                label: {
+        show: true,
+        position: 'top'
+      },
             }]
         };
         chart2.setOption(option2);
